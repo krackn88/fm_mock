@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1234,
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "dateOfBirth": "1990-01-01",
+    "phone": "123-456-7890",
+    "address": "123 Main St, Anytown, USA",
+    "emergencyContact": "Jane Doe",
+    "emergencyPhone": "098-765-4321",
+    "medications": "Aspirin, Ibuprofen",
+    "symptoms": "None"
+  },
+  {
+    "id": 5678,
+    "name": "Alice Smith",
+    "email": "alice.smith@example.com",
+    "dateOfBirth": "1985-05-15",
+    "phone": "555-123-4567",
+    "address": "456 Elm St, Othertown, USA",
+    "emergencyContact": "Bob Smith",
+    "emergencyPhone": "555-765-4321",
+    "medications": "Paracetamol",
+    "symptoms": "Mild headache"
+  }
+]

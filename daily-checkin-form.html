@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FM Healing Center Daily Check-in Form</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .form-container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            border: 2px solid #4CAF50;
+        }
+        .form-container h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .form-container img {
+            display: block;
+            margin: 0 auto 20px auto;
+            max-width: 150px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select,
+        .form-group .slider-container {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group .slider-container {
+            display: flex;
+            align-items: center;
+        }
+        .form-group .slider-container input {
+            margin: 0 10px;
+            flex-grow: 1;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+        .form-group .error {
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <img src="https://fmhealingcenter.com/logo.png" alt="FM Healing Center Logo">
+        <h2>FM Healing Center Daily Check-in Form</h2>
+        <form id="dailyCheckinForm">
+            <div class="form-group">
+                <label for="clientId">Client ID:</label>
+                <input type="text" id="clientId" name="clientId" required>
+                <button type="button" onclick="fetchClientInfo()">Fetch Info</button>
+                <div class="error" id="clientIdError">Please enter your Client ID.</div>
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <div class="error" id="nameError">Please enter your name.</div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error" id="emailError">Please enter a valid email address.</div>
+            </div>
+            <div class="form-group">
+                <label for="dateOfBirth">Date of Birth:</label>
+                <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                <div class="error" id="dateOfBirthError">Please enter your date of birth.</div>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+                <div class="error" id="phoneError">Please enter your phone number.</div>
+            </div>
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+                <div class="error" id="addressError">Please enter your address.</div>
+            </div>
+            <div class="form-group">
+                <label for="emergencyContact">Emergency Contact:</label>
+                <input type="text" id="emergencyContact" name="emergencyContact" required>
+                <div class="error" id="emergencyContactError">Please enter your emergency contact.</div>
+            </div>
+            <div class="form-group">
+                <label for="emergencyPhone">Emergency Contact Phone Number:</label>
+                <input type="tel" id="emergencyPhone" name="emergencyPhone" required>
+                <div class="error" id="emergencyPhoneError">Please enter your emergency contact's phone number.</div>
+            </div>
+            <div class="form-group">
+                <label for="feeling">How are you feeling today?</label>
+                <textarea id="feeling" name="feeling" rows="4" required></textarea>
+                <div class="error" id="feelingError">Please describe how you are feeling today.</div>
+            </div>
+            <div class="form-group">
+                <label for="mood">Mood:</label>
+                <div class="slider-container">
+                    <span>Bad</span>
+                    <input type="range" id="mood" name="mood" min="1" max="10" required>
+                    <span>Good</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="medications">Are you taking any medications?</label>
+                <select id="medications" name="medications" required>
+                    <option value="">Select</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+                <div class="error" id="medicationsError">Please select an option.</div>
+            </div>
+            <div class="form-group" id="medicationListContainer" style="display: none;">
+                <label for="medicationList">If yes, list the medications:</label>
+                <textarea id="medicationList" name="medicationList" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="symptoms">Do you have any symptoms today?</label>
+                <select id="symptoms" name="symptoms" required>
+                    <option value="">Select</option>
+                    <option value="none">None</option>
+                    <option value="mild">Mild</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="severe">Severe</option>
+                </select>
+                <div class="error" id="symptomsError">Please select an option.</div>
+            </div>
+            <div class="form-group">
+                <label for="additionalComments">Additional Comments:</label>
+                <textarea id="additionalComments" name="additionalComments" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        async function fetchClientInfo() {
+            const clientId = document.getElementById('clientId').value;
+            if (!clientId) {
+                document.getElementById('clientIdError').style.display = 'block';
+                return;
+            }
+            document.getElementById('clientIdError').style.display = 'none';
+            try {
+                const response = await fetch(`/client/${clientId}`);
+                if (!response.ok) {
+                    throw new Error('Client not found');
+                }
+                const client = await response.json();
+                document.getElementById('name').value = client.name;
+                document.getElementById('email').value = client.email;
+                document.getElementById('dateOfBirth').value = client.dateOfBirth;
+                document.getElementById('phone').value = client.phone;
+                document.getElementById('address').value = client.address;
+                document.getElementById('emergencyContact').value = client.emergencyContact;
+                document.getElementById('emergencyPhone').value = client.emergencyPhone;
+                document.getElementById('medications').value = client.medications ? 'yes' : 'no';
+                document.getElementById('medicationList').value = client.medications;
+                document.getElementById('symptoms').value = client.symptoms;
+                if (client.medications) {
+                    document.getElementById('medicationListContainer').style.display = 'block';
+                }
+            } catch (error) {
+                alert(error.message);
+            }
+        }
+
+        document.getElementById('dailyCheckinForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            let valid = true;
+            const requiredFields = ['name', 'email', 'dateOfBirth', 'phone', 'address', 'emergencyContact', 'emergencyPhone', 'feeling', 'medications', 'symptoms'];
+            
+            requiredFields.forEach(field => {
+                const input = document.getElementById(field);
+                const error = document.getElementById(field + 'Error');
+                if (!input.value) {
+                    error.style.display = 'block';
+                    valid = false;
+                } else {
+                    error.style.display = 'none';
+                }
+            });
+
+            if (valid) {
+                const formData = new FormData(this);
+                const data = {};
+                formData.forEach((value, key) => {
+                    data[key] = value;
+                });
+
+                // Google Forms URL (from the embed code)
+                const googleFormsUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSd4RawqhtO54ooDEDymii1OwnBjnzzaMgxubYeRRcTeAh_NfA/formResponse';
+
+                // Submit the form data to Google Forms
+                fetch(googleFormsUrl, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams(data)
+                }).then(response => {
+                    // Handle successful submission
+                    alert('Form submitted successfully!');
+                }).catch(error => {
+                    // Handle errors
+                    console.error('Error submitting form:', error);
+                    alert('There was an error submitting the form. Please try again.');
+                });
+            }
+        });
+
+        document.getElementById('medications').addEventListener('change', function() {
+            const medicationListContainer = document.getElementById('medicationListContainer');
+            if (this.value === 'yes') {
+                medicationListContainer.style.display = 'block';
+            } else {
+                medicationListContainer.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
